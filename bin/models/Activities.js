@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const {Schema} = require('mongoose');
 const mongoosePaginate = require('mongoose-paginate');
 
 const ActivitiesSchema = new mongoose.Schema({
@@ -15,6 +16,11 @@ const ActivitiesSchema = new mongoose.Schema({
     status: {
         type: String,
         require: true,
+    },
+
+    user: {
+        type: Schema.Types.ObjectId,
+        ref: 'Users'
     },
 
     createdAt: {

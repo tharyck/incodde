@@ -59,6 +59,18 @@ module.exports = {
 
     },
 
+    async showActivities(req, res){
+        let user = await users.findById(req.params.id);
+
+        let activities = [];
+        for(let i=0, len = user.activities.length; i<len; ++i){
+            let activity = await Activities.findById(user.activities[i]);
+            activities.push(activity);
+        }
+        return res.json(activities);
+
+    },
+
     async delete(req, res){
         await User.findByIdAndRemove(req.params.id);
 
@@ -74,10 +86,6 @@ module.exports = {
 
             if (!user) {
                 return res.status(400).send({error: 'Email Not Found'});
-            }
-
-            if(!user.enabled){
-                return res.status(400).send({error: 'User Disabled'})
             }
 
             if(!await bcrypt.compare(password, user.password)){

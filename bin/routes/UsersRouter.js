@@ -9,4 +9,5 @@ router.post('/', controller.create);
 router.put('/:id', controller.update);
 router.get('/:id', controller.show);
 router.delete('/:id', controller.delete);
+router.get('/activites/', controller.showActivities);
 module.exports = router;
