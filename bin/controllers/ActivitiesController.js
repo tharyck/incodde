@@ -6,8 +6,8 @@ const Activities = mongoose.model('Activities');
 module.exports = {
 
     async create(req, res){
-        const activity = await Activities.create(req.body);
-
+        const activity = await Activities.create({...req.body, user: req.userId});
+        console.log(req.userId);
         return res.json(activity);
     },
 

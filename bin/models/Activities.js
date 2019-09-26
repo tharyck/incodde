@@ -15,12 +15,14 @@ const ActivitiesSchema = new mongoose.Schema({
 
     status: {
         type: String,
-        require: true,
+        enum : ['pendente', 'fazendo', 'concluida' ],
+        default: 'pendente'
     },
 
     user: {
         type: Schema.Types.ObjectId,
-        ref: 'Users'
+        ref: 'Users',
+        require: true
     },
 
     createdAt: {
