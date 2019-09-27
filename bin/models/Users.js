@@ -20,11 +20,6 @@ const UsersSchema = new mongoose.Schema({
         require: true,
     },
 
-    activities: [{
-        type: Schema.Types.ObjectId,
-        ref: 'Activities'
-    }] ,
-
     createdAt: {
         type: Date,
         default: Date.now(),
