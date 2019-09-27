@@ -6,28 +6,18 @@ const Activities = mongoose.model('Activities');
 module.exports = {
 
     async create(req, res){
-        const activity = await Activities.create({...req.body, user: req.userId});
-        console.log(req.userId);
+        const activity = await Activities.create({title: req.body.title, description: req.body.description, status: req.body.status, user: req.userId});
         return res.json(activity);
     },
 
     async update(req, res){
-        const activity = await Activities.findOneAndUpdate(req.params.id, req.body, { new: true });
-
+        const activity = await Activities.findOneAndUpdate(req.params.id, {title: req.body.title, description: req.body.description, status: req.body.status, user: req.userId}, { new: true });
         return res.json(activity);
     },
 
     async index(req, res){
-        const {page = 0} = req.query;
-        const {limit = 10} = req.query;
-
-        if(page === 0){
-            const activities = await Activities.find();
-            return res.json(activities);
-        } else {
-            const activities = await Activities.paginate({}, {page, limit} );
-            return res.json(activities);
-        }
+        const activities = await Activities.find({user: req.userId});
+        return res.json(activities);
     },
 
     async show(req, res){

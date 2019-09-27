@@ -54,20 +54,8 @@ module.exports = {
     },
 
     async show(req, res){
-        const user = await User.findById(req.params.id);
+        const user = await User.findOne(req.params.id);
         return res.json(user);
-
-    },
-
-    async showActivities(req, res){
-        let user = await users.findById(req.params.id);
-
-        let activities = [];
-        for(let i=0, len = user.activities.length; i<len; ++i){
-            let activity = await Activities.findById(user.activities[i]);
-            activities.push(activity);
-        }
-        return res.json(activities);
 
     },
 
